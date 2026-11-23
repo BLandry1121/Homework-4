@@ -1,14 +1,17 @@
-CC=g++
-DEPS = bowling_frame.h
 
-all: bowling_frame.o main.o
-	$(CC) -std=c++11 bowling_frame.o main.o
+CC = g++
+CFLAGS = -std=c++11 -Wall
 
-bowling: bowling_frame.o $(DEPS)
-	$(CC) -c -std=c++11 bowling_frame.cpp
+all: a.out
 
-main: main.o $(DEPS)
-	$(CC) -c -std=c++11 main.cpp
+a.out: bowling_frame.o main.o
+	$(CC) $(CFLAGS) bowling_frame.o main.o -o a.out
 
-clean: 
-	rm *.o *.out
+bowling_frame.o: bowling_frame.cpp bowling_frame.h
+	$(CC) $(CFLAGS) -c bowling_frame.cpp
+
+main.o: main.cpp bowling_frame.h
+	$(CC) $(CFLAGS) -c main.cpp
+
+clean:
+	rm -f *.o *.out
